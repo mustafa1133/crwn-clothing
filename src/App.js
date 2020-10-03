@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import HomePage from './pages/homepage/homepage.component';
 import './pages/homepage/homepage.styles.scss'
-
+import Directory from './Components/directory/directory.component'
 function App() {
   return (
     <div>
