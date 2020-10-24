@@ -1,7 +1,7 @@
 import React from 'react';
 
 import './pages/homepage/homepage.styles.scss'
-import {Switch,Route} from 'react-router-dom';
+import {Switch,Route,Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import './App.css';
 
@@ -45,9 +45,13 @@ componentWillUnmount(){
       <div>
         <Header/>
         <Switch>
-      <Route exact path='/' component={HomePage}></Route>
-      <Route path='/shop' component={ShopPage}></Route>
-      <Route path='/signin' component={SignInAndSignUpPage}></Route>
+      <Route exact path='/' component={HomePage}/>
+      <Route path='/shop' component={ShopPage}/>
+      <Route exact path='/signin' 
+      render= {() => this.props.currentUser ? (<Redirect to='/'/>) :   // if the current user is logged in we redirect to home page else we direct to sign page
+      (<SignInAndSignUpPage/>
+      )}
+      />
   
         </Switch>
       </div>
@@ -56,9 +60,11 @@ componentWillUnmount(){
 
 }
 
-
-const mapDispatchToProps = dispatch => ({
+const mapStateToProps = ({user}) => ({ // first argument is the store state
+  currentUser: user.currentUser // setcurrent user is a method from our actions user is the payload
+})
+const mapDispatchToProps = dispatch => ({ // used to fire actions to the store
   setCurrentUser: user => dispatch(setCurrentUser(user))
 })
 
-export default connect(null,mapDispatchToProps)(App);
+export default connect(mapStateToProps,mapDispatchToProps)(App);
