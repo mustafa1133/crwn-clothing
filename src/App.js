@@ -17,21 +17,24 @@ class App extends React.Component {
 
   unsubscribeFromAuth = null // used as a placeholder for unsubscribing
 
-componentDidMount(){
-  this.unsubscribeFromAuth=auth.onAuthStateChanged( async userAuth => {
-    if(userAuth){
-      const userRef= await createUserProfileDocument(userAuth);
+  componentDidMount() {
+    const { setCurrentUser } = this.props;
 
-      userRef.onSnapshot(snapShot => {
-        this.props.setCurrentUser({
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+      if (userAuth) {
+        const userRef = await createUserProfileDocument(userAuth);
+
+        userRef.onSnapshot(snapShot => {
+          setCurrentUser({
             id: snapShot.id,
             ...snapShot.data()
-        })
-      });
-    }
-    this.setState({currentUser : userAuth});
-  });
-}
+          });
+        });
+      }
+
+      setCurrentUser(userAuth);
+    });
+  }
 
 componentWillUnmount(){
   this.unsubscribeFromAuth(); // closes the subscription for memory leaks
