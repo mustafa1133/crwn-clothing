@@ -11,6 +11,6 @@ export const addItemToCart = (cartItems,cartItemToAdd) => { // cartItems are the
             )
         }
 
-return [...cartItems, {...cartItemToAdd, quantity: 1}] // add existing cart items and then we add the new cart item with a base property of quantity
+return [...cartItems, {...cartItemToAdd, quantity: 1}]; // add existing cart items and then we add the new cart item with a base property of quantity
 
 };
