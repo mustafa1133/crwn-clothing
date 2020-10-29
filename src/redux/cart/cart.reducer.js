@@ -18,6 +18,13 @@ const cartReducer = (state = INITAL_STATE, action) => {
                 ...state,
                 cartItems: addItemToCart(state.cartItems, action.payload) // action.payload is the items we want to ass and cartItems are the existing items
             }
+
+        case CartActionTypes.CLEAR_ITEM_FROM_CART:
+            return{
+                ...state,
+                cartItems: state.cartItems.filter(
+                    cartItem => cartItem.id !== action.payload.id) // keeps all items that do not match the item we removed id
+            }
             default:
                 return state;
     }
