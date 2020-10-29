@@ -1,5 +1,5 @@
 import CartActionTypes from './cart.types'
-import {addItemToCart} from './cart.utils'
+import {addItemToCart,removeItemFromCart} from './cart.utils'
 
 const INITAL_STATE = {
     hidden: true,
@@ -16,7 +16,12 @@ const cartReducer = (state = INITAL_STATE, action) => {
         case CartActionTypes.ADD_ITEM:
             return {
                 ...state,
-                cartItems: addItemToCart(state.cartItems, action.payload) // action.payload is the items we want to ass and cartItems are the existing items
+                cartItems: addItemToCart(state.cartItems, action.payload) // action.payload is the items we want to pass and cartItems are the existing items
+            }
+        case CartActionTypes.REMOVE_ITEM:
+            return{
+                ...state,
+                cartItems: removeItemFromCart(state.cartItems,action.payload)
             }
 
         case CartActionTypes.CLEAR_ITEM_FROM_CART:
