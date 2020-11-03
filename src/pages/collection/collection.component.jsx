@@ -4,14 +4,22 @@ import CollectionItem from '../../Components/collection-item/collection-item.com
 import {selectCollection} from '../../redux/shop/shop.selectors';
 import './collection.styles.scss';
 
-const CollectionPage = ({match}) => (
+const CollectionPage = ({collection}) =>  {
+   const {title,items} = collection;
+   
+    return( 
     <div className='collection-page'>
-        <h2>COLLECTION PAGE</h2>
+        <h2 className='title'>{title}</h2>
+        <div className='items'>
+            {
+                items.map(item => <CollectionItem key= {item.id} item={item}/>)
+            }
+        </div>
     </div>
 );
-
+};
 const mapStateToProps = (state,ownProps) => ({
-    collection: selectCollection(ownProps.match.param.collectionId)(state) // need to pass state to get the url for the function
+    collection: selectCollection(ownProps.match.params.collectionId)(state) // need to pass state to get the url for the function
 })
 
-export default connect(mapStateToProps) (CollectionPage);
+export default connect(mapStateToProps)(CollectionPage);
