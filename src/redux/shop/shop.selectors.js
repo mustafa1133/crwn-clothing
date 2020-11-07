@@ -11,7 +11,7 @@ export const selectCollections = createSelector(
 
 export const selectCollectionsForPreview = createSelector (
   [selectCollections],
-  collections => Object.keys(collections).map(key => collections(key)) // takes all keys in an object and returns it into an array format
+  collections => Object.keys(collections).map(key => collections[key]) // takes all keys in an object and returns it into an array format
 )
 
 export const selectCollection = memoize((collectionUrlParam) =>
